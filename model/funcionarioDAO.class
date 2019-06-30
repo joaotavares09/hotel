@@ -1,0 +1,20 @@
+<?php
+
+class funcionarioDAO {
+    
+    public function cadastrar($conexao,$nome, $cpf, $telefone, $email, $salario) {
+    try {
+        $conexao->exec("insert into Funcionario(nome, cpf, telefone, email, salario) values ('$nome', '$cpf', '$telefone', '$email', $salario)");
+        header("Location:../view/cadastrarFuncionario.php?resposta=Cadastrado com sucesso&alerta=success");
+    } catch (Exception $exc) {
+        header("Location:../view/cadastrarFuncionario.php?resposta=Erro ao cadastrar&alerta=danger");
+    }
+}
+
+    public function pesquisar($conexao,$pesq) {
+        $result = $conexao->query("SELECT * FROM Funcionario WHERE nome like'%". $pesq."%'");
+
+        
+        return $result;
+    }
+}
